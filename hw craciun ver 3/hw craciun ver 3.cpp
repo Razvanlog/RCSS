@@ -46,20 +46,15 @@ void create_table_vals(int counter)
 }
 int main(int argc, char** argv)
 {
-    cout << "mode?\ninput 1 to show wff in different representations\ninput 2 to obtain truth table\n";
+    cout << "mode:";
     cin >> mode;
-    cout << "input wff\nps:\n(1)! is negation, & is and, | is or, $ is implication, # is equivalence, 0 is always false and 1 is always true\n(2)relaxed syntax is accepted, operator priority is: !, &, |, $, #\n";
+    cout << "input wff:";
     cin >> input;
     if (mode == 2)
     {
         Climb infix;
         try {
             prop_tree tree = infix.get_tree(input);
-            /*for (int i = 0; i < 3; i++)
-            {
-                prop_tree::set_format(i);
-                cout << i << ": " <<'[' << tree<<']' << '\n';
-            }*/
             for (int i = 0; i < input.size(); i++)
             {
                 if ((input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z'))
@@ -82,8 +77,6 @@ int main(int argc, char** argv)
             else if (l_c_1)
                 cout << "wff is satisfiable\n";
             else cout << "wff is unsatisfiable\n";
-            // cout << tree._root->counter();
-             //   cout<<tree.eval()<<'\n';
         }
         catch (const char* error)
         {
