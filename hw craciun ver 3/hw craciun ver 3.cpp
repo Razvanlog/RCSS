@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 {
     cout << "mode?\ninput 1 to show wff in different representations\ninput 2 to obtain truth table\n";
     cin >> mode;
-    cout << "input wff\nps:\n(1)! is negation, & is and, | is or, $ is implication, # isequivalence, 0 is always false and 1 is always true\n(2)relaxed syntax is accepted, operator priority is: !, &, |, $, #\n";
+    cout << "input wff\nps:\n(1)! is negation, & is and, | is or, $ is implication, # is equivalence, 0 is always false and 1 is always true\n(2)relaxed syntax is accepted, operator priority is: !, &, |, $, #\n";
     cin >> input;
     if (mode == 2)
     {
