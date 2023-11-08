@@ -3,7 +3,7 @@
 #include <memory>
 #include "proptree.h"
 using namespace std;
-prop_tree::prop_tree(char c)
+prop_tree::prop_tree(string c)
     :_root(make_shared<Operand>(c)) {}
 prop_tree::prop_tree(int nr)
     :_root(make_shared<Operand>(nr)) {}

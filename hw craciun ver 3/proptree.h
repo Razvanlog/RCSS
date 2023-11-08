@@ -25,7 +25,7 @@ public:
     //friend class tree_node;
     prop_tree() :_root(nullptr) {}
 
-    prop_tree(char);//build variable
+    prop_tree(std::string);//build variable
     prop_tree(int);
     prop_tree(char, prop_tree, prop_tree);//build logic operator'
 
@@ -54,8 +54,12 @@ inline std::ostream& operator<<(std::ostream& out, const prop_tree& T)
 }
 class Operand : public tree_node {
 public:
-    Operand(char c) :name(c) {}
-    Operand(int n):value(n){}
+    Operand(std::string c) :name(c) {}
+    Operand(int n):value(n) {
+        if (n == 0)
+            name = "0";
+        else name = "1";
+    }
     int type = 1;
     
     void whatami()
@@ -63,14 +67,14 @@ public:
         std::cout << "i am an operand\n";
     }
 private:
-    char name;
+    std::string name;
     int value = 0;
     int eval() const{
         return value; 
     }
-    int iam()const {
+    /*int iam()const {
         return name;
-    }
+    }*/
     int counter() const
     {
         return 1;
