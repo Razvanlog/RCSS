@@ -1,18 +1,22 @@
 #include "infix.h"
+#include "Quine_McClusky.h"
 #include <iostream>
 #include <string>
 #include <map>
+#include <algorithm>
 #include <vector>
 using namespace std;
 string input;
 vector <string> var;
+vector <int> p2;
+vector <string> minterms;
 map <string, int> mp;
-int l,mode,l_c_1,l_c_0;
+int l,mode,l_c_1,l_c_0,n;
 int create_input()
 {
     string s = "";
     int i = 0;
-    while (i < input.size())//for (int i = 0; i < input.size(); i++)
+    while (i < input.size())
     {
         string name = "";
         if (input[i]!='\\' && input[i] != '0' && input[i] != '1' && input[i] != '!' && input[i] != '|' && input[i] != '&' && input[i] != '(' && input[i] != ')' && input[i] != '#' && input[i] != '$')
@@ -29,9 +33,7 @@ int create_input()
         }
     }
     Climb infix;
-    //cout << s << '\n';
     prop_tree tree = infix.get_tree(s);
-    //cout << tree<<'\n';
     return tree.eval();
 }
 void create_table_vals(int counter)
@@ -59,33 +61,54 @@ void create_table_vals(int counter)
         cout << '\n';
     }
 }
+void obtain_minterms(int counter, int& r,qm QM)
+{
+    if (counter < l)
+    {
+        mp[var[counter]] = 0;
+        obtain_minterms(counter + 1,r,QM);
+        mp[var[counter]] = 1;
+        obtain_minterms(counter + 1,r,QM);
+    }
+    else
+    {
+        int result = create_input();
+        if (result)
+            minterms.push_back(QM.pad(QM.dec_to_bin(r)));
+        r++;
+    }
+}
 int main(int argc, char** argv)
 {
     mode = 1;
+    for (int i = 1; i < 31; i++)
+    {
+        p2.push_back((1 << i));
+    }
     while (mode)
     {
         cout << "mode:";
         cin >> mode;
-        if (mode > 2)
+        if (mode > 3 && mode<0)
             cout<<"Error: invalid mode",mode=0;
-        if (mode<=2 && mode>=1)
+        if (mode<=4 && mode>=1)
         {
+            minterms.clear();
             mp.clear();
             var.clear();
-            cout << "input wff:";
-            cin >> input;
-            //cout << input.size()<<'\n';
-            input += "\\";
-            //cout << input;
-            //cout << '\n';
-            //cout << input.size() << '\n';
+            if (mode==4 && mode <= 4 && mode >= 1)
+            {
+                cout << "input wff:";
+                cin >> input;
+                input += "\\";
+            }
+
             if (mode == 2)
             {
                 Climb infix;
                 try {
                     prop_tree tree = infix.get_tree(input);
                     int i = 0;
-                    //for (int i = 0; i < input.size(); i++)
                     while (i < input.size())
                     {
                         if (input[i] != '\\' && input[i] != '!' && input[i] != '|' && input[i] != '&' && input[i] != '(' && input[i] != ')' && input[i] != '#' && input[i] != '$')//((input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z'))
@@ -121,7 +144,7 @@ int main(int argc, char** argv)
                     cout << error << '\n';
                 }
             }
-            else
+            else if (mode==1)
             {
                 Climb infix;
                 try {
@@ -138,6 +161,130 @@ int main(int argc, char** argv)
                         cout << '[' << tree << ']' << '\n';
                     else
                         cout << tree << '\n';
+                }
+                catch (const char* error)
+                {
+                    cout << error << '\n';
+                }
+            }
+            else if (mode == 3)
+            {
+                cout << "number of variables:";
+                cin >> n;
+                qm q(n);
+                int a1=0;
+                string input="";
+                cout << "values truth function:\n";
+                
+                for (int i = 0; i < (1 << n); i++)
+                {
+                    int inp;
+                    cout << i<<":";
+                    cin >> inp;
+                    
+                    if (inp)
+                    {
+                        minterms.push_back(q.pad(q.dec_to_bin(i)));
+                    }
+                }
+                sort(minterms.begin(), minterms.end());
+                do
+                {
+                    minterms = q.reduce(minterms);
+                    sort(minterms.begin(), minterms.end());
+                } while (!q.vec_equal(minterms,q.reduce(minterms)));
+                int it = 0;
+                string before_wff = "";
+                for (it = 0; it < minterms.size() - 1; it++)
+                {
+                    before_wff = before_wff + q.get_value(minterms[it]) + '|';
+                }
+                before_wff = before_wff + q.get_value(minterms[it]);
+                before_wff = before_wff + '\\';
+                Climb infix;
+                try {
+                    prop_tree tree = infix.get_tree(before_wff);
+                    cout << "format?\ninput 1 for wff standard\ninput 2 for set representation\n";
+                    int syntax = 1;
+                    cin >> syntax;
+                    if (syntax > 2)
+                    {
+                        throw("Error: invalid syntax");
+                    }
+                    prop_tree::set_format(syntax);
+                    if (syntax == 2)
+                        cout << '[' << tree << ']' << '\n';
+                    else
+                        cout << tree << '\n';
+                }
+                catch (const char* error)
+                {
+                    cout << error << '\n';
+                }
+            }
+            else if (mode == 4)
+            {
+                Climb infix;
+                try {
+                    prop_tree tree = infix.get_tree(input);
+                    int i = 0;
+                    while (i < input.size())
+                    {
+                        if (input[i] != '\\' && input[i] != '!' && input[i] != '|' && input[i] != '&' && input[i] != '(' && input[i] != ')' && input[i] != '#' && input[i] != '$')//((input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z'))
+                        {
+                            string name = "";
+                            while (i < input.size() && input[i] != '\\' && input[i] != '!' && input[i] != '|' && input[i] != '&' && input[i] != '(' && input[i] != ')' && input[i] != '#' && input[i] != '$')//((input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z'))
+                            {
+                                name.push_back(input[i]);
+                                i++;
+                            }
+                            if (mp.find(name) == mp.end())
+                            {
+                                var.push_back(name);
+                                mp[name] = 0;
+                            }
+                        }
+                        i++;
+                    }
+                    l = var.size();
+                    qm q(var.size());
+                    int it = 0;
+                    obtain_minterms(0,it,q);
+                    sort(minterms.begin(), minterms.end());
+                    //cout << "DA";
+                    do
+                    {
+                        minterms = q.reduce(minterms);
+                        sort(minterms.begin(), minterms.end());
+                    } while (!q.vec_equal(minterms, q.reduce(minterms)));
+                    it = 0;
+                    string before_wff = "";
+                    for (it = 0; it < minterms.size() - 1; it++)
+                    {
+                        before_wff = before_wff + q.get_value_custom(minterms[it], var)+'|';
+                    }
+                    before_wff = before_wff + q.get_value_custom(minterms[it], var);
+                    before_wff = before_wff + '\\';
+                    Climb infixx;
+                    try {
+                        prop_tree treee = infixx.get_tree(before_wff);
+                        cout << "format?\ninput 1 for wff standard\ninput 2 for set representation\n";
+                        int syntax = 1;
+                        cin >> syntax;
+                        if (syntax > 2)
+                        {
+                            throw("Error: invalid syntax");
+                        }
+                        prop_tree::set_format(syntax);
+                        if (syntax == 2)
+                            cout << '[' << treee << ']' << '\n';
+                        else
+                            cout << treee << '\n';
+                    }
+                    catch (const char* error)
+                    {
+                        cout << error << '\n';
+                    }
                 }
                 catch (const char* error)
                 {

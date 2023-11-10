@@ -24,11 +24,10 @@ class prop_tree {
 public:
     //friend class tree_node;
     prop_tree() :_root(nullptr) {}
-
+    
     prop_tree(std::string);//build variable
     prop_tree(int);
     prop_tree(char, prop_tree, prop_tree);//build logic operator'
-
     int eval() const { return _root->eval(); }
     //int iam() const { return _root->iam(); }
     //int counter() const { return _root->counter(); }
@@ -90,7 +89,6 @@ public:
     {
         std::cout << "i am an operator\n";
     }
-private:
     char binop;
     prop_tree left, right;
     int eval() const;
