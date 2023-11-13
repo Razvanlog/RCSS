@@ -29,6 +29,7 @@ void Operator::print(std::ostream& out)const {
         //out << left << ' ' << right << ' ' << binop; break;
     }
 }
+//vector<prop_tree>
 int Operator::eval()const {
     int val_1 = left.eval();
     int val_2 = right.eval();

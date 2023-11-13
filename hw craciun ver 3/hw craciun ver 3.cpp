@@ -10,6 +10,7 @@ string input;
 vector <string> var;
 vector <int> p2;
 vector <string> minterms;
+vector <shared_ptr<tree_node>>inorder;
 map <string, int> mp;
 int l,mode,l_c_1,l_c_0,n;
 int create_input()
@@ -261,11 +262,12 @@ int main(int argc, char** argv)
                     string before_wff = "";
                     for (it = 0; it < minterms.size() - 1; it++)
                     {
-                        before_wff = before_wff + q.get_value_custom(minterms[it], var)+'|';
+                        before_wff = before_wff + "("+q.get_value_custom(minterms[it], var)+")" + '|';
                     }
-                    before_wff = before_wff + q.get_value_custom(minterms[it], var);
-                    before_wff = before_wff + '\\';
-                    Climb infixx;
+                    before_wff = before_wff +"("+ q.get_value_custom(minterms[it], var)+")";
+                   //before_wff = before_wff + '\\';
+                    cout << before_wff << '\n';
+                    /*Climb infixx;
                     try {
                         prop_tree treee = infixx.get_tree(before_wff);
                         cout << "format?\ninput 1 for wff standard\ninput 2 for set representation\n";
@@ -284,7 +286,7 @@ int main(int argc, char** argv)
                     catch (const char* error)
                     {
                         cout << error << '\n';
-                    }
+                    }*/
                 }
                 catch (const char* error)
                 {

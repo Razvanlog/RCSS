@@ -16,10 +16,10 @@ public:
 		var = a;
 		dontcares.append(var, '-');
 	}
-	vector <string> get_vars()
+	vector <string> get_vars(void)
 	{
 		vector <string> answer;
-		string letters[] = { "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p", };
+		string letters[] = { "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p" };
 		for (int i = 0; i < this->var; i++)
 		{
 			answer.push_back(letters[i]);

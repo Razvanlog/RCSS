@@ -16,7 +16,7 @@ public:
  //   virtual int counter() const = 0;
  //   virtual int iam() const = 0;
 protected:
-    
+    virtual tree_node* position_mem() { return this; };
     virtual int eval() const = 0;
     virtual void print(std::ostream&) const = 0;
 };
@@ -29,6 +29,8 @@ public:
     prop_tree(int);
     prop_tree(char, prop_tree, prop_tree);//build logic operator'
     int eval() const { return _root->eval(); }
+    tree_node* position_mem() { return _root.get(); }
+    //std::vector<shared_ptr<tree_node>> inordered_arr() { return };
     //int iam() const { return _root->iam(); }
     //int counter() const { return _root->counter(); }
     void whatami()
@@ -71,6 +73,8 @@ private:
     int eval() const{
         return value; 
     }
+
+   // vector<prop_tree> inordered_arr();
     /*int iam()const {
         return name;
     }*/
