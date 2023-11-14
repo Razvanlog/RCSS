@@ -97,7 +97,7 @@ int main(int argc, char** argv)
             minterms.clear();
             mp.clear();
             var.clear();
-            if (mode==4 && mode <= 4 && mode >= 1)
+            if (mode!=3 &&mode <= 4 && mode >= 1)
             {
                 cout << "input wff:";
                 cin >> input;
@@ -150,7 +150,7 @@ int main(int argc, char** argv)
                 Climb infix;
                 try {
                     prop_tree tree = infix.get_tree(input);
-                    cout << "format?\ninput 1 for wff standard\ninput 2 for set representation\n";
+                    cout << "format?";
                     int syntax = 1;
                     cin >> syntax;
                     if (syntax > 2)
@@ -172,51 +172,67 @@ int main(int argc, char** argv)
             {
                 cout << "number of variables:";
                 cin >> n;
+                cout << "number of truths in truth function:";
+                int rows=0;
+                cin >> rows;
                 qm q(n);
                 int a1=0;
                 string input="";
-                cout << "values truth function:\n";
-                
-                for (int i = 0; i < (1 << n); i++)
+                cout << "truth function:\n";
+                try
                 {
-                    int inp;
-                    cout << i<<":";
-                    cin >> inp;
-                    
-                    if (inp)
+                    for (int t = 0; t < rows; t++)
                     {
+                        int inp;
+                        int i = 0;
+                        //cout << i<<":";
+                        for (int j = 0; j < n; j++)
+                        {
+                            cin >> inp;
+                            if (inp < 2 && inp >= 0)
+                                i = i + inp * (1 << (n - j));
+                            else
+                            {
+                                throw("Error: invalid truth value");
+                            }
+                        }
+                        //cout<<t<<' ' << i << '\n';
                         minterms.push_back(q.pad(q.dec_to_bin(i)));
                     }
-                }
-                sort(minterms.begin(), minterms.end());
-                do
-                {
-                    minterms = q.reduce(minterms);
                     sort(minterms.begin(), minterms.end());
-                } while (!q.vec_equal(minterms,q.reduce(minterms)));
-                int it = 0;
-                string before_wff = "";
-                for (it = 0; it < minterms.size() - 1; it++)
-                {
-                    before_wff = before_wff + q.get_value(minterms[it]) + '|';
-                }
-                before_wff = before_wff + q.get_value(minterms[it]);
-                before_wff = before_wff + '\\';
-                Climb infix;
-                try {
-                    prop_tree tree = infix.get_tree(before_wff);
-                    cout << "format?\ninput 1 for wff standard\ninput 2 for set representation\n";
-                    int syntax = 1;
-                    cin >> syntax;
-                    if (syntax > 2)
+                    do
                     {
-                        throw("Error: invalid syntax");
+                        minterms = q.reduce(minterms);
+                        sort(minterms.begin(), minterms.end());
+                    } while (!q.vec_equal(minterms, q.reduce(minterms)));
+                    int it = 0;
+                    string before_wff = "";
+                    for (it = 0; it < minterms.size() - 1; it++)
+                    {
+                        before_wff = before_wff + q.get_value(minterms[it]) + '|';
                     }
-                    prop_tree::set_format(syntax);
-                    if (syntax == 2)
-                        cout << '[' << tree << ']' << '\n';
-                    else
-                        cout << tree << '\n';
+                    before_wff = before_wff + q.get_value(minterms[it]);
+                    before_wff = before_wff + '\\';
+                    Climb infix;
+                    try {
+                        prop_tree tree = infix.get_tree(before_wff);
+                        cout << "format?\n";
+                        int syntax = 1;
+                        cin >> syntax;
+                        if (syntax > 2)
+                        {
+                            throw("Error: invalid syntax");
+                        }
+                        prop_tree::set_format(syntax);
+                        if (syntax == 2)
+                            cout << '[' << tree << ']' << '\n';
+                        else
+                            cout << tree << '\n';
+                    }
+                    catch (const char* error)
+                    {
+                        cout << error << '\n';
+                    }
                 }
                 catch (const char* error)
                 {
