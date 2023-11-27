@@ -3,11 +3,15 @@
 #include "proptree.h"
 #include <string>
 #include <sstream>
+#include <iostream>
+using namespace std;
 class Climb : public prop_tree {
 public:
     prop_tree get_tree(const std::string& expression)
     {
         infix.str(expression);
+        //cout << expression<<'\n';
+        //cout << parse_climb(1) << '\n';
         return parse_climb(1);
     }
 private:

@@ -11,6 +11,7 @@ prop_tree::prop_tree(int nr)
 prop_tree::prop_tree(char binop, prop_tree left, prop_tree right)
     :_root(make_shared<Operator>(binop, left, right)) {}
 int prop_tree::format = 0;
+int prop_tree::print_each_step = 0;
 void Operator::print(std::ostream& out)const {
     switch (prop_tree::format)
     {
@@ -18,12 +19,12 @@ void Operator::print(std::ostream& out)const {
         if (binop == '!')
             out << binop <<'(' << left<<')';
         else
-        out << '(' << left << ' ' << binop << ' ' << right << ')'; break;
+        out << '(' << left << binop << right << ')'; break;
     case 2:
     {
-        out <<'[' << binop<<']' << '[' << left << ']';
+        out << binop<<',' << '[' << left << ']';
         if (binop != '!')
-            out << '[' << right << ']';
+            out <<',' << '[' << right << ']';
         break;
     }
         //out << left << ' ' << right << ' ' << binop; break;

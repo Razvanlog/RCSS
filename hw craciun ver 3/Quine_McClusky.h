@@ -116,6 +116,7 @@ public:
 		{
 			return "1";
 		}
+		//cout << a << '\n';
 		int it = 0;
 		for (it = 0; it < a.length(); it++)
 		{
@@ -129,7 +130,33 @@ public:
 				answer = answer + '&';
 			}
 		}
+		//cout << answer << '\n';
 		answer.erase(answer.begin()+answer.size()-1);
+		//cout << answer;
+		return answer;
+	}
+	string get_value_custom_negation(string a, vector<string>var)
+	{
+		string answer = "";
+		vector <string> vars = this->get_vars(var);
+		if (a == dontcares)
+		{
+			return "0";
+		}
+		int it = 0;
+		for (it = 0; it < a.length(); it++)
+		{
+			if (a[it] != '-')
+			{
+				if (a[it] == '0')
+				{
+					answer = answer + vars[it];
+				}
+				else answer = answer+"!" + vars[it];
+				answer = answer + '|';
+			}
+		}
+		answer.erase(answer.begin() + answer.size() - 1);
 		return answer;
 	}
 	string get_value_custom(string a, vector<string> var)

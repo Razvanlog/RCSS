@@ -37,10 +37,11 @@ public:
     {
         std::cout << "i am an empty node\n";
     }
-    static int format;
+    static int format,print_each_step;
     int type=0;
  //   std::vector <char> v;
  //   std::map<char, int> mp;
+    static void set_print(int f) { print_each_step = f; }
     static void set_format(int f) { format = f; }
     std::shared_ptr<tree_node> _root;
 private:
