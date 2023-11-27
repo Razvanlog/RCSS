@@ -1,6 +1,12 @@
 # hw-craciun-ver-3
+
+the available modes are:
+  1) for printing the wff in different forms.
+  2) for creating a truth table from a wff.
+  3) for input to formula with relaxed syntax in the form of dnf.
+  4) for simplification of a input formula, the result formula has relaxed syntax and is a dnf.
+
 rules:
-1) the available modes are: 1 for printing the wff in different forms and 2 for creating the truth table.
-2) ! is negation, & is and, | is or, $ is implication, # is equivalence, 1 for variables which are always true and 0 for variables which are always 0.
-3) relaxed syntax is supported, the priority order is !, &, |, $ and #.
-4) there are 2 format options: 1 for standard wff and 2 for set representation.
+1) ! is negation, & is and, | is or, $ is implication, # is equivalence, 1 for variables which are always true and 0 for variables which are always 0.
+2) relaxed syntax is supported, the priority order is !, &, |, $ and #.
+3) there are 2 format options: 1 for standard wff and 2 for set representation.
