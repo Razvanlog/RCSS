@@ -127,13 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DPLL.cpp" />
     <ClCompile Include="hw craciun ver 3.cpp" />
     <ClCompile Include="infix.cpp" />
     <ClCompile Include="proptree.cpp" />
+    <ClCompile Include="Trie_DP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DPLL.h" />
     <ClInclude Include="infix.h" />
     <ClInclude Include="proptree.h" />
+    <ClInclude Include="Trie_DP.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

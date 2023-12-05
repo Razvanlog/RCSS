@@ -24,12 +24,24 @@
     <ClCompile Include="proptree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Trie_DP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DPLL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="infix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="proptree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trie_DP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DPLL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

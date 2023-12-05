@@ -4,9 +4,20 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <unordered_set>
 using namespace std;
+class wffs {
+public:
+    vector<string> wffs;
+    unordered_set<string> wff_marker;
+};
 class Climb : public prop_tree {
 public:
+    wffs subs;
+    /*Climb(const Climb& limb)
+    {
+        *this = limb;
+    }*/
     prop_tree get_tree(const std::string& expression)
     {
         infix.str(expression);

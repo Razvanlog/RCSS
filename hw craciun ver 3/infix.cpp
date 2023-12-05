@@ -16,9 +16,14 @@ prop_tree Climb :: parse_climb(int level) {
         //cout << tree << '\n';
         if (prop_tree::print_each_step == 1)
         {
+            stringstream inp;
             if (prop_tree::format == 1)
-                cout << tree << '\n', output << tree << '\n';
-            else cout << '[' << tree << ']' << '\n', output << '[' << tree << ']' << '\n'<<'\n';
+                inp << tree << '\n', output << tree << '\n';
+            else inp << '[' << tree << ']' << '\n', output << '[' << tree << ']' << '\n'<<'\n';
+            string sinp;
+            inp >> sinp;
+            if (subs.wff_marker.find(sinp)==subs.wff_marker.end())
+            subs.wffs.push_back(sinp),subs.wff_marker.insert(sinp);
         }
     }
     //cout << tree << '\n';
@@ -85,6 +90,8 @@ prop_tree Climb::parse_primary() {
             } while (variabila!='\\' && !(variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!'));
             //std::cout << name<< '\n';
             infix.putback(variabila);
+            if (subs.wff_marker.find(name) == subs.wff_marker.end())
+                subs.wff_marker.insert(name), subs.wffs.push_back(name);
             return prop_tree(name);
         }
     }
