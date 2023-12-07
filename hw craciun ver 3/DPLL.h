@@ -9,6 +9,10 @@ using namespace std;
 class Clause
 {
 public:
+	static int each_step;
+	static void set_print(int f) {
+		each_step = f;
+	}
 	Clause(){}
 	void read_clause(vector <int> in);
 	void read_clause(vector<int> in, map< int, string> mp);

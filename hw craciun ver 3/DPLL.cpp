@@ -4,6 +4,7 @@
 #include<cmath>
 using namespace std;
 //Clause methods
+int Clause::each_step = 0;
 void Clause::read_clause(vector <int> in)
 {
 	for (auto i : in)
@@ -141,8 +142,11 @@ void Formula::read_clause(vector <int> v,map<int,string> mp)
 }
 void Formula::dump_clause()
 {
+	if (len() == 0)
+		cout << "no clauses remaining\n";
 	for (int i = 0; i < len(); i++)
 	{
+		cout << i << ")";
 		get_clause(i).dump_clause();
 	}
 }
@@ -168,8 +172,10 @@ bool solver::solve(Formula_impl& f)
 bool solver::splitting(Formula_impl& f)
 {
 	Formula_impl c(f);
-	c.dump_clause();
-	cout << "\n\n";
+	if (Clause::each_step) {
+		c.dump_clause();
+		cout << "\n";
+	}
 	pair<int, bool>temp;
 	if (c.get_clauses().size() == 0)
 		return true;
@@ -209,7 +215,9 @@ bool solver::splitting(Formula_impl& f)
 			temp = make_pair(firstlit, true);
 			assign.insert(temp);
 			//cout << "splitting: trying literal " << c.get_clause(0).get_var(firstlit) << '\n';
-			cout << "splitting: trying literal " << name << '\n';
+			if (Clause::each_step) {
+				cout << "splitting: trying literal " << name << '\n';
+			}
 			if (splitting(unit_prop(c, firstlit,name)) == true)
 			{
 				//cout << ;
@@ -218,7 +226,9 @@ bool solver::splitting(Formula_impl& f)
 			else
 			{
 				//cout << "splitting: trying literal !" << c.get_clause(0).get_var(abs(firstlit)) << '\n';
-				cout << "splitting: trying literal !" << name << '\n';
+				if (Clause::each_step) {
+					cout << "splitting: trying literal !" << name << '\n';
+				}
 				//cout << "DA";
 				assign.erase(firstlit);
 				temp = make_pair(firstlit, false);
@@ -238,15 +248,19 @@ Formula_impl& solver::unit_prop(Formula_impl& f, int uni,string var)
 		assign.insert(temp);
 		vector <Clause_impl>::iterator get_var=f.clauses.begin();
 		//cout << "removing literal " << get_var->get_var(abs(uni)) << '\n';
-		cout << "removing literal ";
-		if (uni < 0)
-			cout << "!";
-		cout<< var << '\n';
+		if (Clause::each_step) {
+			cout << "removing literal ";
+			if (uni < 0)
+				cout << "!";
+			cout << var << '\n';
+		}
 		vector<Clause_impl>::iterator it;
 		for (it = f.clauses.begin(); it != f.clauses.end();)
 		{
-			f.dump_clause();
-			cout << '\n';
+			if (Clause::each_step) {
+				f.dump_clause();
+				cout << '\n';
+			}
 			bool stop_flag = false;
 			vector <int>::iterator jt;
 			for (jt = it->lits.begin(); jt != it->lits.end();)
@@ -292,10 +306,12 @@ Formula_impl& solver::pure_lit(Formula_impl& f, vector<pair<int,string>>p)
 	vector<Clause_impl>::iterator it;
 	for (int i = 0; i < p.size(); i++)
 	{
-		cout << "removing pure literal ";
-		if (p[i].first < 0)
-			cout << "!";
-		cout<< p[i].second << '\n';
+		if (Clause::each_step) {
+			cout << "removing pure literal ";
+			if (p[i].first < 0)
+				cout << "!";
+			cout << p[i].second << '\n';
+		}
 		for (it = f.clauses.begin(); it != f.clauses.end();)
 		{
 			if (it->has_lit(p[i].first))
@@ -307,8 +323,10 @@ Formula_impl& solver::pure_lit(Formula_impl& f, vector<pair<int,string>>p)
 			}
 			else it++;
 		}
-		f.dump_clause();
-		cout << '\n';
+		if (Clause::each_step) {
+			f.dump_clause();
+			cout << '\n';
+		}
 	}
 	return f;
 }
