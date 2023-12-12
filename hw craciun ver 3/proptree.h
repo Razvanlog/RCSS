@@ -26,8 +26,9 @@ public:
     prop_tree() :_root(nullptr) {}
     
     prop_tree(std::string);//build variable
-    prop_tree(int);
-    prop_tree(char, prop_tree, prop_tree);//build logic operator'
+    prop_tree(int);//build tantology
+    prop_tree(char, prop_tree, prop_tree);//build logic operator
+    prop_tree(char);
     int eval() const { return _root->eval(); }
     tree_node* position_mem() { return _root.get(); }
     //std::vector<shared_ptr<tree_node>> inordered_arr() { return };
@@ -100,5 +101,11 @@ public:
     void modif_value();
     int counter() const;
     void print(std::ostream&) const;
+};
+class Function:public tree_node{
+public:
+    Function(char f_name):function_name(f_name){}
+    int type=3;
+    char function_name;
 };
 #endif // PROPTREE_H_INCLUDED

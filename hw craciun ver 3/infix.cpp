@@ -70,9 +70,10 @@ prop_tree Climb::parse_primary() {
             infix >> c;
             //cout << c << '\n';
             prop_tree tree = parse_primary();
+            prop_tree empty_node;
             //cout << c;
             //int next_level = right_ass(c) ? priority(c) : priority(c) + 1;
-            return prop_tree(c, tree, NULL);
+            return prop_tree(c, tree, empty_node);
         }
         else
         {
