@@ -352,6 +352,8 @@ void empty_all_containers() {
     mp.clear();
     var.clear();
     inorder.clear();
+    prop_tree::set_format(0);
+    prop_tree::set_print(0);
 }
 void mode_1() {
     cout << "input wff:";
@@ -363,23 +365,28 @@ void mode_1() {
     try {
         cout << "format?\n";
         int syntax = 1;
+        int each_step=1;
         cin >> syntax;
-        input_log << "format:" << syntax << '\n';
+        cout<<"each step?\n";
+        cin>>each_step;
+        input_log << "format:" << syntax<<"each_step:"<<each_step << '\n';
         prop_tree::set_format(syntax);
+        prop_tree::set_print(each_step);
         if (syntax > 2)
         {
             throw("Error: invalid syntax");
         }
         else
         {
-            prop_tree::set_print(1);
+            //prop_tree::set_print(1);
             prop_tree tree = infix.get_tree(input);
-            prop_tree::set_print(0);
+            //prop_tree::set_print(0);
             //cout << '\n';
             /*if (syntax == 2)
                 cout << "[" << tree << "]" << '\n';
             else cout << tree << '\n';*/
             output_log << "command:" << line_i << ", show wff" << '\n';
+            //cout<<tree<<'\n';
             for (auto i : infix.subs.wffs)
             {
                 cout << i << '\n';

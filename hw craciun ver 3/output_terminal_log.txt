@@ -1,0 +1,8 @@
+p[a,b,c]
+p[ads[a,b,c],d,a,b]
+1:08:50 2023
+
+command:0, show wff
+p[a,b,c], 
+command:1, show wff
+p[ads[a,b,c],d,a,b], 

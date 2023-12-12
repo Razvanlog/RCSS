@@ -31,6 +31,9 @@ private:
     prop_tree parse_primary();
     char look_ahead()
     {
+        if (infix.eof()){
+            return 0;
+        }
         char c; infix >> c;
         infix.putback(c);
         return c;
@@ -46,6 +49,9 @@ inline int priority(char op)
     case '#': return 1;
     }
     return 0;
+}
+inline int priority(string op){
+    return 10;
 }
 inline bool right_ass(char op) { return op == '!'; }
 

@@ -10,6 +10,8 @@ prop_tree::prop_tree(int nr)
     :_root(make_shared<Operand>(nr)) {}
 prop_tree::prop_tree(char binop, prop_tree left, prop_tree right)
     :_root(make_shared<Operator>(binop, left, right)) {}
+prop_tree::prop_tree(string f,vector<prop_tree> p)
+    :_root(make_shared<Function>(f,p)){}
 int prop_tree::format = 0;
 int prop_tree::print_each_step = 0;
 void Operator::print(std::ostream& out)const {
@@ -45,6 +47,32 @@ int Operator::eval()const {
     case '#':val_1 = (val_1 == val_2); break;
     }
         return val_1;
+}
+void Function::print(std::ostream& out)const{
+    int i=0;    
+    switch (prop_tree::format)
+    {
+    case 1:
+        out<<function_name<<"[";
+        
+        for (i=0; i<parameters.size()-1; i++)
+            out<<parameters[i]<<',';
+        out<<parameters[i]<<']';
+        break;
+    case 2:
+    {
+        out << function_name<<',' << '[';
+        for (i=0;i<parameters.size()-1; i++)
+            out<<'{'<<parameters[i]<<'}'<<',';
+        out<<'{'<<parameters[i]<<'}'<<']';
+        break;
+    }
+        //out << left << ' ' << right << ' ' << binop; break;
+    }
+}
+//THIS FUNCTION IS WIP
+int Function::eval() const{
+    return 0;
 }
 /*int Operator::counter() const {
     int val_1 = left.counter();

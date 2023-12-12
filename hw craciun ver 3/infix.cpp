@@ -8,13 +8,14 @@ prop_tree Climb :: parse_climb(int level) {
     prop_tree tree = parse_primary();
     //cout << tree << '\n';
     while (priority(look_ahead()) >= level) {
+        //cout<<"YES";
         char op;
         infix >> op;
         //std::cout << op;
         int next_level = right_ass(op) ? priority(op) : priority(op) + 1;
         tree = prop_tree(op, tree, parse_climb(next_level));
         //cout << tree << '\n';
-        if (prop_tree::print_each_step == 1)
+        if (prop_tree::print_each_step)
         {
             stringstream inp;
             if (prop_tree::format == 1)
@@ -26,6 +27,17 @@ prop_tree Climb :: parse_climb(int level) {
             subs.wffs.push_back(sinp),subs.wff_marker.insert(sinp);
         }
     }
+    if (prop_tree::print_each_step){
+        stringstream inp;
+            if (prop_tree::format == 1)
+                inp << tree << '\n', output << tree << '\n';
+            else inp << '[' << tree << ']' << '\n', output << '[' << tree << ']' << '\n'<<'\n';
+            string sinp;
+            inp >> sinp;
+            if (subs.wff_marker.find(sinp)==subs.wff_marker.end())
+            subs.wffs.push_back(sinp),subs.wff_marker.insert(sinp);
+    }
+    //cout<<"DA";
     //cout << tree << '\n';
     return tree;
 }
@@ -79,22 +91,63 @@ prop_tree Climb::parse_primary() {
         {
             //c = 'a';
             std::string name = "";
-            //
             do
             {
-                if (!(variabila=='\\' || variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!'))
+                if (!(variabila=='\\' || variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','))
                     name.push_back(variabila);
                 //char c;
                 infix >> variabila;
                 //std::cout << infix.str()<<' '<<variabila << '\n';
                 
-            } while (variabila!='\\' && !(variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!'));
+            } while (variabila!='\\' && !(variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','));
             //std::cout << name<< '\n';
+            if (name=="")
+            throw "Error: NULL when expected name";
+            if (variabila=='!')
+                throw "Error: logic error";
+            else if (variabila!='['){
             infix.putback(variabila);
-            if (subs.wff_marker.find(name) == subs.wff_marker.end())
-                subs.wff_marker.insert(name), subs.wffs.push_back(name);
+            /*if (subs.wff_marker.find(name) == subs.wff_marker.end())
+                subs.wff_marker.insert(name), subs.wffs.push_back(name);*/
             return prop_tree(name);
+            }
+            else {
+                vector<prop_tree> par;
+                do{
+                    prop_tree inp=parse_primary();
+                    par.push_back(inp);
+                    infix>>variabila;
+                }while(variabila!=']');
+                return prop_tree(name,par);
+                /*std::string vars_formatted="";
+                vector<prop_tree> par;
+                do{
+                    
+                    infix>>variabila;
+                    if (variabila=='['){
+                        par.push_back(prop_tree(vars_formatted));
+                    }
+                    if (variabila==','){
+                        if (vars_formatted=="")
+                        throw "Error: empty variable";
+                        else {
+                            par.push_back(prop_tree(vars_formatted));
+                            vars_formatted="";
+                        }
+                    }
+                    else if (variabila!=']'){
+                        vars_formatted.push_back(variabila);
+                    }
+                }while (variabila!=']' && !infix.eof());
+                if (vars_formatted=="")
+                throw "Error:empty variable";
+                else par.push_back(prop_tree(vars_formatted));
+                if (variabila!=']' && infix.eof())
+                throw "Error: please close your parantheses :)";
+                return prop_tree(name,par);*/
+            }
         }
+
     }
     }
 }

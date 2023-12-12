@@ -28,7 +28,7 @@ public:
     prop_tree(std::string);//build variable
     prop_tree(int);//build tantology
     prop_tree(char, prop_tree, prop_tree);//build logic operator
-    prop_tree(char);
+    prop_tree(std::string,std::vector<prop_tree>);
     int eval() const { return _root->eval(); }
     tree_node* position_mem() { return _root.get(); }
     //std::vector<shared_ptr<tree_node>> inordered_arr() { return };
@@ -104,8 +104,16 @@ public:
 };
 class Function:public tree_node{
 public:
-    Function(char f_name):function_name(f_name){}
+    Function(std::string f_name,std::vector<prop_tree> p):function_name(f_name),parameters(p){}
+    std::vector<prop_tree> parameters;
     int type=3;
-    char function_name;
+    std::string function_name;
+    int eval() const;
+    int counter() const;
+    void print(std::ostream&) const;
+};
+class Quantifier:public tree_node{
+    public:
+    char type;
 };
 #endif // PROPTREE_H_INCLUDED
