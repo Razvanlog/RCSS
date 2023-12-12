@@ -29,7 +29,7 @@ public:
     prop_tree(int);//build tantology
     prop_tree(char, prop_tree, prop_tree);//build logic connector
     prop_tree(std::string,std::vector<prop_tree>);//build function
-    //prop_tree(char,prop_tree,prop_tree,int);
+    prop_tree(char,prop_tree,prop_tree,int);
     int eval() const { return _root->eval(); }
     tree_node* position_mem() { return _root.get(); }
     //std::vector<shared_ptr<tree_node>> inordered_arr() { return };

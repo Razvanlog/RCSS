@@ -87,7 +87,7 @@ prop_tree Climb::parse_primary() {
         else if (variabila=='@'||variabila=='~'){
             prop_tree var=parse_primary();
             prop_tree cond=parse_primary();
-            //return prop_tree(variabila,var,cond,4);
+            return prop_tree(variabila,var,cond,4);
         }
         else
         {
@@ -95,13 +95,13 @@ prop_tree Climb::parse_primary() {
             std::string name = "";
             do
             {
-                if (!(variabila=='\\' || variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','))
+                if (!(variabila=='\\' || variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' ||variabila=='('|| variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','))
                     name.push_back(variabila);
                 //char c;
                 infix >> variabila;
                 //std::cout << infix.str()<<' '<<variabila << '\n';
                 
-            } while (variabila!='\\' && !(variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' || variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','));
+            } while (variabila!='\\' && !(variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' ||variabila=='('|| variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','));
             //std::cout << name<< '\n';
             if (name=="")
             throw "Error: NULL when expected name";
@@ -159,4 +159,5 @@ prop_tree Climb::parse_primary() {
 
     }
     }
+    return prop_tree();
 }

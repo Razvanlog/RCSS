@@ -12,6 +12,8 @@ prop_tree::prop_tree(char binop, prop_tree left, prop_tree right)
     :_root(make_shared<Operator>(binop, left, right)) {}
 prop_tree::prop_tree(string f,vector<prop_tree> p)
     :_root(make_shared<Function>(f,p)){}
+prop_tree::prop_tree(char quan,prop_tree var,prop_tree cond,int type)
+    :_root(make_shared<Quantifier>(quan,var,cond,type)){}
 int prop_tree::format = 0;
 int prop_tree::print_each_step = 0;
 void Operator::print(std::ostream& out)const {
