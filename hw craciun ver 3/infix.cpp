@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-ofstream output("output_terminal_log.txt");
+ofstream output("output_terminal_log.txt",std::ios::app);
 prop_tree Climb :: parse_climb(int level) {
     prop_tree tree = parse_primary();
     //cout << tree << '\n';

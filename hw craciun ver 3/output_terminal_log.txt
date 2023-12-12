@@ -1,0 +1,26 @@
+program started at Wed Dec 13 01:02:29 2023
+ command:0, show wff
+g, (p&g), t, ((p&g)&t), 
+g
+(p&g)
+t
+((p&g)&t)
+((p&g)&t)
+program started at Wed Dec 13 01:03:19 2023
+command:0, show wff
+g, (p&g), t, ((p&g)&t), 
+command:1, truth table:
+g (p&g) 
+0 0 
+1 0 
+0 0 
+1 1 
+wff is satisfiable
+g
+(p&g)
+t
+((p&g)&t)
+((p&g)&t)
+g
+(p&g)
+(p&g)

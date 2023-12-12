@@ -1,0 +1,5 @@
+program started at Wed Dec 13 01:02:29 2023
+ command:0, mode:1, wff:p&g&t,format:1each_step:1
+program started at Wed Dec 13 01:03:19 2023
+command:0, mode:1, wff:p&g&t,format:1each_step:1
+command:1, mode:2, wff:p&g

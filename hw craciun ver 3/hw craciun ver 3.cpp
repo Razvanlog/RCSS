@@ -12,8 +12,8 @@
 #include <cstring>
 #include <fstream>
 using namespace std;
-ofstream input_log("input_terminal_log.txt");
-ofstream output_log("output_terminal_log.txt");
+ofstream input_log("input_terminal_log.txt",std::ios::app);
+ofstream output_log("output_terminal_log.txt",std::ios::app);
 string input;
 vector <string> var;
 vector <string> minterms;
@@ -40,8 +40,8 @@ int main(int argc, char** argv)
     time_t time = chrono::system_clock::to_time_t(chrono::system_clock::now());
     char current_time[26];
     ctime_s(current_time, sizeof(current_time), &time);
-    input_log << "program started at " << current_time << '\n';
-    output_log << "program started at " << current_time << '\n';
+    input_log << "program started at " << current_time;
+    output_log << "program started at " << current_time;
     //line_i++;
     while (mode)
     {
@@ -378,9 +378,9 @@ void mode_1() {
         }
         else
         {
-            //prop_tree::set_print(1);
+            prop_tree::set_print(1);
             prop_tree tree = infix.get_tree(input);
-            //prop_tree::set_print(0);
+            prop_tree::set_print(0);
             //cout << '\n';
             /*if (syntax == 2)
                 cout << "[" << tree << "]" << '\n';
