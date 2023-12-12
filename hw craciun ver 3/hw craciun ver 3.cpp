@@ -690,10 +690,12 @@ void mode_7() {
     map<string, int>names;
     Formula_impl f;
     int var_counter = 0;
-    for (int i = 1; i <= 6; i++)
+    int n,m;
+    cin>>n>>m;
+    for (int i = 1; i <= n; i++)
     {
         vector<int>inp;
-        for (int j = 1; j <= 5; j++)
+        for (int j = 1; j <= m; j++)
         {
             string name;
             var_counter++;
@@ -706,11 +708,11 @@ void mode_7() {
         }
         f.read_clause(inp, vars);
     }
-    for (int i = 1; i <= 6; i++)
+    for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= 5; j++)
+        for (int j = 1; j <= m; j++)
         {
-            for (int k = j + 1; k <= 5; k++)
+            for (int k = j + 1; k <= m; k++)
             {
                 vector <int>inp;
                 string name;
@@ -726,11 +728,11 @@ void mode_7() {
             }
         }
     }
-    for (int i = 1; i <= 6; i++)
+    for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= 5; j++)
+        for (int j = 1; j <= m; j++)
         {
-            for (int k = i + 1; k <= 6; k++)
+            for (int k = i + 1; k <= m; k++)
             {
                 vector <int>inp;
                 string name;
