@@ -1,9 +1,2 @@
-abc[]
-(p&abc[])
-(p&abc[])
-abc[a,b,c]
-(p&abc[a,b,c])
-(p&abc[a,b,c])
-, (p&abc[]), 
-command:1, show wff
-abc[a,b,c], (p&abc[a,b,c]), 
+program started at Wed Dec 13 00:09:15 2023
+

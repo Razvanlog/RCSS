@@ -27,8 +27,9 @@ public:
     
     prop_tree(std::string);//build variable
     prop_tree(int);//build tantology
-    prop_tree(char, prop_tree, prop_tree);//build logic operator
-    prop_tree(std::string,std::vector<prop_tree>);
+    prop_tree(char, prop_tree, prop_tree);//build logic connector
+    prop_tree(std::string,std::vector<prop_tree>);//build function
+    //prop_tree(char,prop_tree,prop_tree,int);
     int eval() const { return _root->eval(); }
     tree_node* position_mem() { return _root.get(); }
     //std::vector<shared_ptr<tree_node>> inordered_arr() { return };
@@ -114,6 +115,13 @@ public:
 };
 class Quantifier:public tree_node{
     public:
-    char type;
+    Quantifier(char quan_type,prop_tree variable,prop_tree condition,int type):quan_type(quan_type),variable(variable),condition(condition),type(type){}
+    int type=4;
+    char quan_type;
+    prop_tree condition;
+    prop_tree variable;
+    int eval() const;
+    int counter() const;
+    void print(std::ostream&)const;
 };
 #endif // PROPTREE_H_INCLUDED

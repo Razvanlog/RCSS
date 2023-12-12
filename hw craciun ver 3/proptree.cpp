@@ -81,8 +81,24 @@ void Function::print(std::ostream& out)const{
         //out << left << ' ' << right << ' ' << binop; break;
     }
 }
-//THIS FUNCTION IS WIP
-int Function::eval() const{
+int Function::eval() const{//THIS FUNCTION IS WIP
+    return 0;
+}
+void Quantifier::print(std::ostream& out) const{
+    switch (prop_tree::format)
+    {
+    case 1:
+        out<<'('<<quan_type<<variable<<'('<<condition<<')'<<')';
+        break;
+    case 2:
+    {
+        out<<'['<<quan_type<<']'<<','<<'['<<variable<<']'<<','<<'['<<condition<<']';
+        break;
+    }
+        //out << left << ' ' << right << ' ' << binop; break;
+    }
+}
+int Quantifier::eval() const{//THIS IS WIP
     return 0;
 }
 /*int Operator::counter() const {

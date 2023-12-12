@@ -77,15 +77,17 @@ prop_tree Climb::parse_primary() {
         else if (variabila == '!')
         {
             //cout << "exclamation check";
-            infix.putback(variabila);
-            char c;
-            infix >> c;
             //cout << c << '\n';
             prop_tree tree = parse_primary();
             prop_tree empty_node;
             //cout << c;
             //int next_level = right_ass(c) ? priority(c) : priority(c) + 1;
-            return prop_tree(c, tree, empty_node);
+            return prop_tree(variabila, tree, empty_node);
+        }
+        else if (variabila=='@'||variabila=='~'){
+            prop_tree var=parse_primary();
+            prop_tree cond=parse_primary();
+            //return prop_tree(variabila,var,cond,4);
         }
         else
         {
