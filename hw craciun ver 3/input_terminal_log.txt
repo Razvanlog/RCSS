@@ -1,4 +1,4 @@
-program started at Tue Dec 12 21:08:50 2023
+program started at Tue Dec 12 21:17:57 2023
 
-command:0, mode:1, wff:p[a,b,c],format:1each_step:1
-command:1, mode:1, wff:p[ads[a,b,c],d,a,b],format:1each_step:1
+command:0, mode:1, wff:p&abc[],format:1each_step:1
+command:1, mode:1, wff:p&abc[a,b,c],format:1each_step:1

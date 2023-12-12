@@ -53,18 +53,29 @@ void Function::print(std::ostream& out)const{
     switch (prop_tree::format)
     {
     case 1:
-        out<<function_name<<"[";
-        
+        out<<function_name;
+        if (parameters.empty()){
+            out<<"[]";
+        }
+        else{
+        out<<"[";
         for (i=0; i<parameters.size()-1; i++)
             out<<parameters[i]<<',';
         out<<parameters[i]<<']';
+        }
         break;
     case 2:
     {
-        out << function_name<<',' << '[';
+        out << function_name;
+        if (parameters.empty()){
+            out<<"[]";
+        }
+        else {
+            out<<',' << '[';
         for (i=0;i<parameters.size()-1; i++)
             out<<'{'<<parameters[i]<<'}'<<',';
         out<<'{'<<parameters[i]<<'}'<<']';
+        }
         break;
     }
         //out << left << ' ' << right << ' ' << binop; break;

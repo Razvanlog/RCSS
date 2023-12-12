@@ -113,6 +113,13 @@ prop_tree Climb::parse_primary() {
             }
             else {
                 vector<prop_tree> par;
+                char a;
+                infix>>a;
+               if (a==']')
+               {
+                return prop_tree(name,par);
+               }
+               infix.putback(a);
                 do{
                     prop_tree inp=parse_primary();
                     par.push_back(inp);
