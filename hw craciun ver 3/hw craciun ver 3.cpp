@@ -33,7 +33,7 @@ void mode_4();
 void mode_5();
 void mode_6();
 void mode_7();
-
+int recog_com(string);
 int main(int argc, char** argv)
 {
     mode = 1;
@@ -45,8 +45,11 @@ int main(int argc, char** argv)
     //line_i++;
     while (mode)
     {
-        cout << "mode:";
-        cin >> mode;
+        //cout << "mode:";
+        //cin >> mode;
+        string command;
+        cin>>command;
+        mode=recog_com(command);
         //input_log<<"line "<<line_i << ": " << mode << '\n';
         //if (mode > 4 && mode<0)
         //    cout<<"Error: invalid mode",mode=0;
@@ -88,11 +91,33 @@ int main(int argc, char** argv)
                 mode_7();
             }
         }
+        else if (mode>0) {
+            cout<<"command unrecognized\n";
+        }
         line_i++;
     }
     return 0;
 }
 //functions
+int recog_com(string s){
+    if (s=="is_wff" || s=="wff")
+        return 1;
+    if (s=="create_tt" || s=="tt")
+        return 2;
+    if (s=="truth_function_wff" || s=="tfwff")
+        return 3;
+    if (s=="simplify" || s=="s")
+        return 4;
+    if (s=="nf")
+        return 5;
+    if (s=="dpll")
+        return 6;
+    if (s=="pigeon")
+        return 7;
+    if (s=="\n" || s=="exit")
+        return 0;
+    return 5000000;
+}
 int create_input(string wff)
 {
     string s = "";

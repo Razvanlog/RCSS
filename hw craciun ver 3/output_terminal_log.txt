@@ -24,3 +24,18 @@ t
 g
 (p&g)
 (p&g)
+program started at Sun Dec 17 21:29:08 2023
+command:0, show wff
+b, (a&b), 
+b
+(a&b)
+(a&b)
+program started at Sun Dec 17 21:30:25 2023
+command:0, show wff
+b, (a|b), 
+b
+(a|b)
+(a|b)
+program started at Sun Dec 17 21:32:11 2023
+program started at Sun Dec 17 21:32:54 2023
+program started at Sun Dec 17 21:41:20 2023
