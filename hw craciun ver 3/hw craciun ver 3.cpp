@@ -2,6 +2,7 @@
 #include "infix.h"
 #include "Quine_McClusky.h"
 #include "DPLL.h"
+#include "CDCL.h"
 //#include "Trie_DP.h"
 #include <iostream>
 #include <string>
@@ -33,6 +34,8 @@ void mode_4();
 void mode_5();
 void mode_6();
 void mode_7();
+void mode_8();
+void mode_9();
 int recog_com(string);
 int main(int argc, char** argv)
 {
@@ -54,7 +57,7 @@ int main(int argc, char** argv)
         //if (mode > 4 && mode<0)
         //    cout<<"Error: invalid mode",mode=0;
         //output_log << "yes" << '\n';
-        if (mode<=7 && mode>=1)
+        if (mode>=0)
         {
             //auto tt = chrono::system_clock::now();
             //g<<"program started at " << asctime_s(tt) << '\n';
@@ -90,8 +93,14 @@ int main(int argc, char** argv)
                 Clause::set_print(0);
                 mode_7();
             }
+            else if (mode==8){
+                mode_8();
+            }
+            else if (mode==9){
+                mode_9();
+            }
         }
-        else if (mode>0) {
+        else if (mode<0) {
             cout<<"command unrecognized\n";
         }
         line_i++;
@@ -114,9 +123,13 @@ int recog_com(string s){
         return 6;
     if (s=="pigeon")
         return 7;
+    if (s=="op_pigeon")
+        return 9;
+    if (s=="cdcl")
+        return 8;
     if (s=="\n" || s=="exit")
         return 0;
-    return 5000000;
+    return -1;
 }
 int create_input(string wff)
 {
@@ -764,7 +777,7 @@ void mode_7() {
     {
         for (int j = 1; j <= m; j++)
         {
-            for (int k = i + 1; k <= m; k++)
+            for (int k = i + 1; k <= n; k++)
             {
                 vector <int>inp;
                 string name;
@@ -780,11 +793,30 @@ void mode_7() {
             }
         }
     }
+    //cout<<f.clauses.size();
     solver  sat;
+    time_t start,end;
+    time(&start);
     if (sat.solve(f))
     {
         cout << "sat";
     }
     else cout << "unsat";
     cout << '\n';
+    time(&end);
+    cout<<end-start<<'\n';
+}
+void mode_8(){
+    CDCL a;
+    a.ini();
+    a.solve();
+}
+void mode_9(){
+    CDCL a;
+    time_t start,end;
+    a.ini_pigeon();
+    time(&start);
+    a.solve();
+    time(&end);
+    cout<<end-start<<'\n';
 }
