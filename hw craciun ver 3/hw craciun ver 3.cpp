@@ -36,6 +36,7 @@ void mode_6();
 void mode_7();
 void mode_8();
 void mode_9();
+void mode_help();
 int recog_com(string);
 int main(int argc, char** argv)
 {
@@ -50,7 +51,8 @@ int main(int argc, char** argv)
     {
         //cout << "mode:";
         //cin >> mode;
-        string command;
+        string command="\n";
+        cout<<"RLC:";
         cin>>command;
         mode=recog_com(command);
         //input_log<<"line "<<line_i << ": " << mode << '\n';
@@ -64,50 +66,117 @@ int main(int argc, char** argv)
             //empty_all_containers();
             if (mode == 2)
             {
+                try{
                 mode_2();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
                // output_log << "Yes";
             }
             else if (mode==1)
             {
+                try{
                 mode_1();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode == 3)
             {
+                try{
                 mode_3();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode == 4)
             {
+                try{
                 mode_4();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode == 5)
             {
+                try{
                 mode_5();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode == 6)
             {
+                try{
                 Clause::set_print(0);
                 mode_6();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode == 7)
             {
+                try{
                 Clause::set_print(0);
                 mode_7();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode==8){
+                try{
                 mode_8();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
             else if (mode==9){
+                try{
                 mode_9();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
+            }
+            else if (mode==10){
+                try{
+                mode_help();
+                }
+                catch(...){
+                    cout<<"caught an error, verify input\n";
+                }
             }
         }
         else if (mode<0) {
             cout<<"command unrecognized\n";
         }
         line_i++;
+        cin.clear();
     }
     return 0;
 }
 //functions
+
+void mode_help(){
+    cout<<"is_wff / wff : to check if a formula is valid\n";
+    cout<<"create_tt / tt : to create a truth table\n";
+    cout<<"truth_function_wff / tfwff : to create a wff from a truth function\n";
+    cout<<"simplify / s : to simplify a wff\n";
+    cout<<"nf : to obtain cnf and dnf of a wff\n";
+    cout<<"dpll : to verify satisfiability of a given clause set using dpll\n";
+    cout<<"pigeon : to solve the pigeon problem with dpll\n";
+    cout<<"cdcl : to verify satisfiability of a given clause set using cdcl\n";
+    cout<<"op_pigeon: to solve the pigeon problem with cdcl\n";
+    cout<<"enter / exit : exit and close program\n";
+}
 int recog_com(string s){
     if (s=="is_wff" || s=="wff")
         return 1;
@@ -129,6 +198,8 @@ int recog_com(string s){
         return 8;
     if (s=="\n" || s=="exit")
         return 0;
+    if (s=="help")
+        return 10;
     return -1;
 }
 int create_input(string wff)
@@ -402,17 +473,20 @@ void mode_1() {
     Climb infix;
     try {
         cout << "format?\n";
-        int syntax = 1;
-        int each_step=1;
+        int syntax = -1;
+        int each_step=-1;
         cin >> syntax;
         cout<<"each step?\n";
         cin>>each_step;
         input_log << "format:" << syntax<<"each_step:"<<each_step << '\n';
         prop_tree::set_format(syntax);
         prop_tree::set_print(each_step);
-        if (syntax > 2)
+        if (syntax > 2 && syntax<0)
         {
             throw("Error: invalid syntax");
+        }
+        else if (each_step>0){
+            throw("Error: invalid input");
         }
         else
         {

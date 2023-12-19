@@ -14,3 +14,8 @@ program started at Sun Dec 17 23:02:03 2023
 program started at Mon Dec 18 00:28:00 2023
 program started at Mon Dec 18 01:00:03 2023
 program started at Mon Dec 18 01:18:07 2023
+program started at Mon Dec 18 23:37:31 2023
+program started at Mon Dec 18 23:38:10 2023
+command:0, mode:1, wff:a[b,c,d],format:1each_step:1
+program started at Tue Dec 19 15:12:28 2023
+command:0, mode:1, wff:ewq,format:0each_step:-1

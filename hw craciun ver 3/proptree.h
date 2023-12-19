@@ -19,12 +19,18 @@ protected:
     virtual tree_node* position_mem() { return this; };
     virtual int eval() const = 0;
     virtual void print(std::ostream&) const = 0;
+   // virtual void sub(std::map<std::string,prop_tree>,int) const = 0;
 };
+/*class replacement{
+    string x;
+    prop_tree* y;
+    replacement(string x,prop_tree* y):x(x),y(y){}
+    void execute(tree_node*);
+};*/
 class prop_tree {
 public:
     //friend class tree_node;
     prop_tree() :_root(nullptr) {}
-    
     prop_tree(std::string);//build variable
     prop_tree(int);//build tantology
     prop_tree(char, prop_tree, prop_tree);//build logic connector
@@ -46,9 +52,8 @@ public:
     static void set_print(int f) { print_each_step = f; }
     static void set_format(int f) { format = f; }
     std::shared_ptr<tree_node> _root;
+    //void sub(std::map<std::string,prop_tree>,int);
 private:
-    
-
     friend std::ostream& operator<<(std::ostream&, const prop_tree&);
 };
 inline std::ostream& operator<<(std::ostream& out, const prop_tree& T)
@@ -65,13 +70,12 @@ public:
         else name = "1";
     }
     int type = 1;
-    
     void whatami()
     {
         std::cout << "i am an operand\n";
     }
-private:
     std::string name;
+private:
     int value = 0;
     int eval() const{
         return value; 
@@ -85,6 +89,8 @@ private:
     {
         return 1;
     }
+    //void sub(std::map<std::string,prop_tree>,int);
+    int check(std::string);
     void print(std::ostream& out) const { out << name; }
 };
 class Operator :public tree_node {
@@ -101,6 +107,7 @@ public:
     int eval() const;
     void modif_value();
     int counter() const;
+    //void sub(std::map<std::string,prop_tree>,int);
     void print(std::ostream&) const;
 };
 class Function:public tree_node{
@@ -112,6 +119,7 @@ public:
     int eval() const;
     int counter() const;
     void print(std::ostream&) const;
+    //void sub(std::map<std::string,prop_tree>,int);
 };
 class Quantifier:public tree_node{
     public:
@@ -123,5 +131,6 @@ class Quantifier:public tree_node{
     int eval() const;
     int counter() const;
     void print(std::ostream&)const;
+    //void sub(std::map<std::string,prop_tree>,int);
 };
 #endif // PROPTREE_H_INCLUDED
