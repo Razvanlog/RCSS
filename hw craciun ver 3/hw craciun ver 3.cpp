@@ -4,6 +4,7 @@
 #include "DPLL.h"
 #include "CDCL.h"
 //#include "Trie_DP.h"
+#include <sysinfoapi.h>
 #include <iostream>
 #include <string>
 #include <map>
@@ -869,16 +870,19 @@ void mode_7() {
     }
     //cout<<f.clauses.size();
     solver  sat;
-    time_t start,end;
-    time(&start);
+    //time_t start,end;
+    long long int start=GetTickCount64(),finish;
+    //time(&start);
     if (sat.solve(f))
     {
         cout << "sat";
     }
     else cout << "unsat";
-    cout << '\n';
-    time(&end);
-    cout<<end-start<<'\n';
+    finish=GetTickCount64();
+    double elapsed=(finish-start)*1e-3;
+    cout << '\n'<<elapsed<<'\n';
+    //time(&end);
+    //cout<<end-start<<'\n';
 }
 void mode_8(){
     CDCL a;
@@ -887,10 +891,17 @@ void mode_8(){
 }
 void mode_9(){
     CDCL a;
-    time_t start,end;
+    //time_t start,end;
     a.ini_pigeon();
-    time(&start);
+    //time(&start);
+    long long int start=GetTickCount64();
+    //auto start=std::chrono::high_resolution_clock::now();
     a.solve();
-    time(&end);
-    cout<<end-start<<'\n';
+    long long int finish=GetTickCount64();
+    double elapsed=(finish-start)*1e-3;
+    cout<<elapsed<<'\n';
+    //auto end=std::chrono::high_resolution_clock::now();
+    //auto elapsed=std::chrono::duration_cast<std::chrono::nanoseconds>(end-start);
+    //time(&end);
+    //cout<<elapsed.count()<<'\n';
 }

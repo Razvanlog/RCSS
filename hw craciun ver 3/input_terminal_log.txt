@@ -19,3 +19,5 @@ program started at Mon Dec 18 23:38:10 2023
 command:0, mode:1, wff:a[b,c,d],format:1each_step:1
 program started at Tue Dec 19 15:12:28 2023
 command:0, mode:1, wff:ewq,format:0each_step:-1
+program started at Tue Dec 19 15:24:28 2023
+program started at Tue Dec 19 15:29:14 2023
