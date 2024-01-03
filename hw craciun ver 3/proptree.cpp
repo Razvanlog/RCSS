@@ -83,14 +83,14 @@ int Operator::eval()const {
     switch (binop) {
     case '&': val_1 = (val_1 & val_2); break;
     case '|': val_1 = (val_1 | val_2); break;
-    case '!': if (val_1)val_1 = 0; else val_1 = 1; break;
+    case '!': val_1=!val_1; break;
     case '$': {if (val_1 == 0) val_1 = 1;
             else val_1 = val_2;
         break;
     }
     case '#':val_1 = (val_1 == val_2); break;
     }
-        return val_1;
+    return val_1;
 }
 /*void Function::sub(map<string,prop_tree>m,int type){
     int i=0;    
@@ -185,7 +185,7 @@ void Quantifier::print(std::ostream& out) const{
         break;
     }
     default:{
-        out<<'('<<quan_type<<variable<<'('<<condition<<')'<<')';
+        out<<'('<<quan_type<<variable<<condition<<')';
         break;
     }
         //out << left << ' ' << right << ' ' << binop; break;

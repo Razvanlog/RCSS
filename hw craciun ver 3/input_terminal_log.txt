@@ -21,3 +21,10 @@ program started at Tue Dec 19 15:12:28 2023
 command:0, mode:1, wff:ewq,format:0each_step:-1
 program started at Tue Dec 19 15:24:28 2023
 program started at Tue Dec 19 15:29:14 2023
+program started at Wed Dec 20 03:27:41 2023
+program started at Wed Jan  3 18:43:16 2024
+command:0, mode:2, wff:a#b
+program started at Wed Jan  3 18:45:06 2024
+command:0, mode:2, wff:!a
+command:1, mode:2, wff:(((a&w)$p)&(!a$i)&(!w$m)&!p&(e$!(i|m)))
+command:2, mode:4, wff:(((a&w)$p)&(!a$i)&(!w$m)&!p&(e$!(i|m)))command:3, mode:5, wff:(((a&w)$p)&(!a$i)&(!w$m)&!p&(e$!(i|m)))

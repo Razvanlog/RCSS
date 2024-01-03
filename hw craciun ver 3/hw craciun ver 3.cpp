@@ -486,7 +486,7 @@ void mode_1() {
         {
             throw("Error: invalid syntax");
         }
-        else if (each_step>0){
+        else if (each_step<0){
             throw("Error: invalid input");
         }
         else

@@ -79,15 +79,41 @@ prop_tree Climb::parse_primary() {
             //cout << "exclamation check";
             //cout << c << '\n';
             prop_tree tree = parse_primary();
-            prop_tree empty_node;
+            prop_tree empty_node(0);
             //cout << c;
             //int next_level = right_ass(c) ? priority(c) : priority(c) + 1;
             return prop_tree(variabila, tree, empty_node);
         }
         else if (variabila=='@'||variabila=='~'){
-            prop_tree var=parse_primary();
-            prop_tree cond=parse_primary();
-            return prop_tree(variabila,var,cond,4);
+            // var=parse_primary();
+            char symbol=variabila;
+            std::string name = "";
+            do
+            {
+                infix>>variabila;
+                if (!(variabila=='\\' || variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' ||variabila=='('|| variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','))
+                    name.push_back(variabila);
+                //char c;
+                infix >> variabila;
+                //std::cout << infix.str()<<' '<<variabila << '\n';
+                
+            } while (variabila!='\\' && !(variabila == '#' || variabila == '$' || variabila == '&' || variabila == '|' ||variabila=='('|| variabila == ')' || variabila=='!' || variabila=='[' || variabila==']' || variabila==','));
+            //std::cout << name<< '\n';
+            infix.putback(variabila);
+            if (name=="")
+            throw "Error: NULL when expected name";
+            if (variabila=='('){
+                //cout<<"DA";
+                prop_tree var(name);
+                //cout<<infix.str()<<'\n';
+                prop_tree cond=parse_primary();
+            return prop_tree(symbol,var,cond,4);
+            }
+            else{
+                throw "Error: logic error";
+            }
+            /*else if (variabila=='[')
+                throw "Error: logic error";*/
         }
         else
         {
