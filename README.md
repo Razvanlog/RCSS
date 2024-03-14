@@ -1,4 +1,4 @@
-# RCSS
+# RLC
 
 the available modes are:
   1) for printing the wff in different forms.
